@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# IDE
+.idea
+
+# cmake
+cmake-*
+
+# libary
+lib
