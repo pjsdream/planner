@@ -23,6 +23,11 @@ public:
     transform_ = transform;
   }
 
+  void ApplyTransform(const Eigen::Affine3d& transform)
+  {
+    transform_ = transform_ * transform;
+  }
+
   const auto& GetTransform() const
   {
     return transform_;

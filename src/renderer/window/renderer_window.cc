@@ -105,6 +105,7 @@ void RendererWindow::Display()
   light_shader_.Start();
   light_shader_.LoadCamera(camera_);
 
+  int cnt = 0;
   for (auto instances : instances_)
   {
     auto object = instances.second.GetObject();
@@ -123,6 +124,8 @@ void RendererWindow::Display()
       light_shader_.LoadModel(instance.transform);
 
       object->Draw();
+
+      cnt++;
     }
   }
 
@@ -146,15 +149,15 @@ void RendererWindow::Mouse(int button, int state, double x, double y)
   switch (button)
   {
     case 0:
-      mouse_button_states_[0] = state;
+      mouse_button_states_[0] = state == 1;
       break;
 
     case 1:
-      mouse_button_states_[1] = state;
+      mouse_button_states_[1] = state == 1;
       break;
 
     case 2:
-      mouse_button_states_[2] = state;
+      mouse_button_states_[2] = state == 1;
       break;
 
     default:
@@ -273,8 +276,8 @@ void RendererWindow::Idle()
   {
     scene->GetRootNode()->AttachObject(mesh);
 
-    object_manager_.GetObjectOrCreateFromFile("elbow_link",
-                                              "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/elbow_flex_link.dae");
+    object_manager_.GetObjectOrCreateFromFile(
+        "elbow_link", "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/elbow_flex_link.dae");
 
     initialized = true;
   }

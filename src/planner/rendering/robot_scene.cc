@@ -13,7 +13,7 @@ void RobotScene::AddRobotScene(const std::shared_ptr<renderer::SceneNode>& scene
                                const std::shared_ptr<robot::RobotLink>& robot_link)
 {
   int counter = 0;
-  for (const auto& visual : robot_link->GetVisuals())
+  for (const auto& visual : robot_link->GetCollisions())
   {
     // Prepare mesh
     scene_node->LoadMeshObject(robot_link->GetName() + "[" + std::to_string(counter) + "]", visual.mesh_filename);
@@ -24,7 +24,7 @@ void RobotScene::AddRobotScene(const std::shared_ptr<renderer::SceneNode>& scene
 
     // Attach the scene object
     auto object = std::make_shared<renderer::SceneObject>(robot_link->GetName() + "[" + std::to_string(counter) + "]");
-    object->SetGlobalColor(visual.color.block(0, 0, 3, 1));
+    //object->SetGlobalColor(visual.color.block(0, 0, 3, 1));
     transformed_node->AttachObject(object);
 
     counter++;

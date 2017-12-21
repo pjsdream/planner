@@ -38,7 +38,9 @@ void RendererContext::Init(int& argc, char** argv)
 
 void RendererContext::PrintVersion()
 {
-  // TODO: glfw version
+  int major, minor, revision;
+  glfwGetVersion(&major, &minor, &revision);
+  std::cout << "GLFW Version: " << major << "." << minor << "." << revision << "\n";
 
   const auto opengl_version = glGetString(GL_VERSION);
   std::cout << "OpenGL Version: " << opengl_version << "\n";

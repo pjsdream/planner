@@ -12,7 +12,8 @@ public:
   Planner() = default;
 
   void SetRobotModel(const std::shared_ptr<robot::RobotModel>& robot_model);
-  void SetEnvironment(const std::shared_ptr<Environment>& environment);
+
+  void UpdateEnvironment(const std::shared_ptr<Environment>& environment);
 
 private:
   std::shared_ptr<robot::RobotModel> robot_model_;

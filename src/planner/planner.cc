@@ -7,8 +7,10 @@ void Planner::SetRobotModel(const std::shared_ptr<robot::RobotModel>& robot_mode
   robot_model_ = robot_model;
 }
 
-void Planner::SetEnvironment(const std::shared_ptr<Environment>& environment)
+void Planner::UpdateEnvironment(const std::shared_ptr<Environment>& environment)
 {
   environment_ = environment;
+
+  // TODO: get obstacles from the environment
 }
 }
