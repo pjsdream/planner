@@ -17,7 +17,7 @@ public:
 public:
   Camera();
 
-  auto EyePosition() const noexcept
+  const auto& EyePosition() const noexcept
   {
     return eye_;
   }
@@ -57,10 +57,10 @@ public:
     sensitivity_zoom_ = s;
   }
 
-  void SetNearFar(double near, double far)
+  void SetNearFar(double near_distance, double far_distance)
   {
-    near_ = near;
-    far_ = far;
+    near_ = near_distance;
+    far_ = far_distance;
   }
 
   void LookAt(const Eigen::Vector3d& eye, const Eigen::Vector3d& center)

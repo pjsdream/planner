@@ -2,6 +2,7 @@
 #define PLANNER_SCENE_SCENE_NODE_H_
 
 #include <memory>
+#include <vector>
 #include <unordered_map>
 
 #include <Eigen/Dense>

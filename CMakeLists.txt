@@ -11,21 +11,36 @@ find_package(Threads)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # eigen
+IF (WIN32)
+  set(Eigen3_DIR C:/lib/eigen-eigen-5a0156e40feb/build/share/eigen3)
+ENDIF(WIN32)
 find_package(Eigen3 REQUIRED)
 
 # assimp
+IF (WIN32)
+  set(assimp_DIR C:/lib/assimp-3.3.1/build/lib/cmake/assimp-3.3)
+ENDIF(WIN32)
 find_package(assimp REQUIRED)
+IF (WIN32)
+  set(ASSIMP_LIBRARIES assimp-vc140-mt)
+  message(${ASSIMP_LIBRARY_DIRS})
+  message(${ASSIMP_LIBRARIES})
+  link_directories(${ASSIMP_LIBRARY_DIRS})
+ENDIF(WIN32)
 
 # glfw
+IF (WIN32)
+  set(glfw3_DIR C:/lib/glfw-3.2.1/build/lib/cmake/glfw3)
+ENDIF(WIN32)
 find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+find_package(glfw3 3.2 REQUIRED)
 
 # Use OpenGL4 by defining GL_GLEXT_PROTOTYPES throughout the project
 add_definitions(-DGL_GLEXT_PROTOTYPES)
 
 # cppzmq
-find_package(cppzmq REQUIRED)
-message(${cppzmq_INCLUDE_DIR})
+#find_package(cppzmq REQUIRED)
+#message(${cppzmq_INCLUDE_DIR})
 
 include_directories(
   src
@@ -65,14 +80,17 @@ add_library(renderer
   src/renderer/scene/scene_object.h
   src/renderer/gl/resource/gl_instances.h
   src/renderer/gl/resource/gl_instances.cc
-  src/renderer/gl/resource/gl_object_manager.h)
+  src/renderer/gl/resource/gl_object_manager.h
+  #src/utils/future_wrapper.h
+  )
 
 target_link_libraries(renderer
   Threads::Threads
-  stdc++fs
-  ${cppzmq_LIBRARY}
+  #stdc++fs
+  #${cppzmq_LIBRARY}
   ${ASSIMP_LIBRARIES}
   ${OPENGL_LIBRARIES}
+  glew32
   glfw
   ${GLFW_LIBRARIES}
 )

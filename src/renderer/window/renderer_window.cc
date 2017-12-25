@@ -274,7 +274,7 @@ void RendererWindow::Idle()
     scene->GetRootNode()->AttachObject(mesh);
 
     object_manager_.GetObjectOrCreateFromFile(
-        "elbow_link", "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/elbow_flex_link.dae");
+        "elbow_link", "C:/Users/pjsdr_000/Desktop/documents/fetch_ros/fetch_description/meshes/elbow_flex_link.dae");
 
     initialized = true;
   }

@@ -1,6 +1,8 @@
 #ifndef PLANNER_PLANNER_ENVIRONMENT_ENVIRONMENT_H_
 #define PLANNER_PLANNER_ENVIRONMENT_ENVIRONMENT_H_
 
+#include <vector>
+
 #include "planner/environment/object.h"
 
 namespace planner

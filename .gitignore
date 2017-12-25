@@ -39,3 +39,10 @@ cmake-*
 
 # libary
 lib
+
+# vs
+vs/.vs
+vs/*/x64
+
+# bin
+bin

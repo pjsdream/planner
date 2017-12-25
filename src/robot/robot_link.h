@@ -2,6 +2,7 @@
 #define PLANNER_ROBOT_ROBOT_LINK_H_
 
 #include <memory>
+#include <vector>
 
 #include <Eigen/Dense>
 
@@ -57,13 +58,19 @@ public:
 
   void AddVisual(const Eigen::Affine3d& origin, const std::string& mesh_filename)
   {
-    Visual visual{.origin = origin, .mesh_filename = mesh_filename, .color = Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.f)};
+    Visual visual;
+    visual.origin = origin;
+    visual.mesh_filename = mesh_filename;
+    visual.color = Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.f);
     visuals_.push_back(visual);
   }
 
   void AddVisual(const Eigen::Affine3d& origin, const std::string& mesh_filename, const Eigen::Vector4f& color)
   {
-    Visual visual{.origin = origin, .mesh_filename = mesh_filename, .color = color};
+    Visual visual;
+    visual.origin = origin;
+    visual.mesh_filename = mesh_filename;
+    visual.color = color;
     visuals_.push_back(visual);
   }
 
@@ -74,7 +81,9 @@ public:
 
   void AddCollision(const Eigen::Affine3d& origin, const std::string& mesh_filename)
   {
-    Collision collision{.origin = origin, .mesh_filename = mesh_filename};
+    Collision collision;
+    collision.origin = origin;
+    collision.mesh_filename = mesh_filename;
     collisions_.push_back(collision);
   }
 

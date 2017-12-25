@@ -7,8 +7,10 @@ namespace renderer
 LightShader::LightShader()
     : Shader()
 {
-  LoadVertexShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/renderer/gl/shader/light_shader.vert");
-  LoadFragmentShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/renderer/gl/shader/light_shader.frag");
+  //LoadVertexShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/renderer/gl/shader/light_shader.vert");
+  //LoadFragmentShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/renderer/gl/shader/light_shader.frag");
+  LoadVertexShaderFromFile("C:/Users/pjsdr_000/Desktop/documents/planner/src/renderer/gl/shader/light_shader.vert");
+  LoadFragmentShaderFromFile("C:/Users/pjsdr_000/Desktop/documents/planner/src/renderer/gl/shader/light_shader.frag");
   Link();
 
   // Uniform locations
