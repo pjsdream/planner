@@ -4,7 +4,7 @@
 #include <vector>
 #include <future>
 
-#include <GL/gl.h>
+#include <glad/glad.h>
 #include <Eigen/Dense>
 
 #include <assimp/scene.h>

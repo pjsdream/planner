@@ -2,18 +2,22 @@
 
 namespace renderer
 {
+namespace
+{
+static double M_PI = 3.1415926535897932384626433832795;
+}
 Camera::Camera()
-    : eye_(1., 1., 1.)
-    , up_(0., 0., 1.)
-    , center_(0., 0., 0.)
-    , sensitivity_translation_(0.001)
-    , sensitivity_rotation_(0.001)
-    , sensitivity_zoom_(0.001)
-    , fovy_(60.)
-    , aspect_(4. / 3.)
-    , near_(-10.)
-    , far_(10.)
-    , projection_type_(ProjectionType::ORTHO)
+    : eye_(1., 1., 1.),
+      up_(0., 0., 1.),
+      center_(0., 0., 0.),
+      sensitivity_translation_(0.001),
+      sensitivity_rotation_(0.001),
+      sensitivity_zoom_(0.001),
+      fovy_(60.),
+      aspect_(4. / 3.),
+      near_(-10.),
+      far_(10.),
+      projection_type_(ProjectionType::ORTHO)
 {
 }
 
@@ -36,7 +40,7 @@ void Camera::RotatePixel(int dx, int dy)
   const Eigen::Vector3d u = up_.cross(n).normalized();
   const Eigen::Vector3d v = n.cross(u);
 
-  double y_diff = - sensitivity_rotation_ * dy;
+  double y_diff = -sensitivity_rotation_ * dy;
 
   // y angle
   const double angle = std::acos(up_.dot(n));
@@ -48,8 +52,8 @@ void Camera::RotatePixel(int dx, int dy)
   else if (angle + y_diff > M_PI - angle_delta)
     y_diff = M_PI - angle_delta - angle;
 
-  Eigen::AngleAxisd rotation_x( - sensitivity_rotation_ * dx, up_ );
-  Eigen::AngleAxisd rotation_y( y_diff, u );
+  Eigen::AngleAxisd rotation_x(-sensitivity_rotation_ * dx, up_);
+  Eigen::AngleAxisd rotation_y(y_diff, u);
 
   eye_ = center_ + rotation_x * (eye_ - center_);
   eye_ = center_ + rotation_y * (eye_ - center_);
@@ -75,11 +79,8 @@ Eigen::Matrix4d Camera::ProjectionMatrix() const
 {
   switch (projection_type_)
   {
-    case ProjectionType::ORTHO:
-      return Ortho();
-
-    case ProjectionType::PERSPECTIVE:
-      return Perspective();
+    case ProjectionType::ORTHO:return Ortho();
+    case ProjectionType::PERSPECTIVE:return Perspective();
   }
 }
 
@@ -107,8 +108,8 @@ Eigen::Matrix4d Camera::Perspective() const
   Eigen::Matrix4d mat = Eigen::Matrix4d::Zero();
   mat(0, 0) = 1. / (aspect_ * t);
   mat(1, 1) = 1. / t;
-  mat(2, 2) = - (near_ + far_) / (far_ - near_);
-  mat(2, 3) = - 2. * near_ * far_ / (far_ - near_);
+  mat(2, 2) = -(near_ + far_) / (far_ - near_);
+  mat(2, 3) = -2. * near_ * far_ / (far_ - near_);
   mat(3, 2) = -1.;
 
   return mat;

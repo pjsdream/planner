@@ -9,6 +9,8 @@ namespace renderer
 {
 namespace
 {
+static double M_PI = 3.1415926535897932384626433832795;
+
 static std::string getDirectory(const std::string filename)
 {
   return filename.substr(0, filename.find_last_of('/'));

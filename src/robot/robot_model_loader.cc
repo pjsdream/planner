@@ -2,8 +2,6 @@
 
 #include <tinyxml2/tinyxml2.h>
 
-#include "tinyxml.h"
-
 namespace robot
 {
 namespace
@@ -150,7 +148,8 @@ std::shared_ptr<RobotModel> RobotModelLoader::LoadFromUrdfFile(const std::string
           collision = collision->NextSiblingElement("collision");
         }
       }
-
+      
+      printf("link name %s\n", link_name.c_str());
       links_[link_name] = link;
     }
 
@@ -186,7 +185,8 @@ std::shared_ptr<RobotModel> RobotModelLoader::LoadFromUrdfFile(const std::string
           sscanf(limit->Attribute("upper"), "%lf", &upper);
       }
       joint->SetLimit(lower, upper);
-
+      
+      printf("joint name %s\n", joint_name.c_str());
       joints_[joint_name] = joint;
     }
 

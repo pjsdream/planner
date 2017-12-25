@@ -49,7 +49,7 @@ RendererBaseWindow::RendererBaseWindow()
 
   // Make the context manager know a window is created
   RendererContext::RegisterWindow(window_, this);
-
+  
   // Register callbacks
   glfwSetWindowRefreshCallback(window_, RefreshCallback);
   glfwSetWindowSizeCallback(window_, ReshapeCallback);
@@ -58,6 +58,13 @@ RendererBaseWindow::RendererBaseWindow()
 
   // Make current for following OpenGL initializations in constructors of derived classes
   MakeCurrent();
+
+  // glad: load all OpenGL function pointers
+  // ---------------------------------------
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+  {
+    std::cerr << "Failed to initialize GLAD" << std::endl;
+  }
 }
 
 RendererBaseWindow::~RendererBaseWindow()

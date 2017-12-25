@@ -6,7 +6,7 @@
 
 #include <Eigen/Dense>
 
-#include <GL/gl.h>
+#include <glad/glad.h>
 
 namespace renderer
 {
