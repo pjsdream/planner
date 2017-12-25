@@ -105,18 +105,17 @@ void RendererWindow::Display()
   light_shader_.Start();
   light_shader_.LoadCamera(camera_);
 
-  int cnt = 0;
   for (auto instances : instances_)
   {
     auto object = instances.second.GetObject();
 
     for (const auto& instance : instances.second.GetInstances())
     {
-      if (object->HasTexture())
-        light_shader_.UseTexture(object->GetTexture());
-
-      else if (instance.has_global_color)
+      if (instance.has_global_color)
         light_shader_.UseGlobalColor(instance.global_color);
+
+      else if (object->HasTexture())
+        light_shader_.UseTexture(object->GetTexture());
 
       else // Use default color
         light_shader_.UseGlobalColor(Eigen::Vector3f(0.8, 0.8, 0.8));
@@ -124,8 +123,6 @@ void RendererWindow::Display()
       light_shader_.LoadModel(instance.transform);
 
       object->Draw();
-
-      cnt++;
     }
   }
 

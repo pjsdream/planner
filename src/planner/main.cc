@@ -2,6 +2,7 @@
 #include "renderer/window/renderer_context.h"
 #include "planner/planner_window.h"
 #include "planner/environment/environment_loader.h"
+#include "planner/motion/robot_motion_loader.h"
 
 int main(int argc, char** argv)
 {
@@ -20,7 +21,12 @@ int main(int argc, char** argv)
   auto environment =
       environment_loader.LoadEnvironmentFromFile("/home/jaesungp/cpp_workspace/planner/config/environment.json");
 
-  window.SetRobotModel(robot_model);
+  // Motion
+  planner::RobotMotionLoader robot_motion_loader;
+  auto robot_motion =
+      robot_motion_loader.LoadRobotMotionFromFile("/home/jaesungp/cpp_workspace/planner/config/motion.json");
+
+  window.SetRobot(robot_model, robot_motion);
   window.SetEnvironment(environment);
 
   renderer::RendererContext::PrintVersion();

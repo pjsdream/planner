@@ -19,12 +19,13 @@ PlannerWindow::PlannerWindow()
   planner_ = std::make_shared<Planner>();
 }
 
-void PlannerWindow::SetRobotModel(const std::shared_ptr<robot::RobotModel>& robot_model)
+void PlannerWindow::SetRobot(const std::shared_ptr<robot::RobotModel>& robot_model,
+                             const std::shared_ptr<RobotMotion>& motion)
 {
   robot_model_ = robot_model;
-  planner_->SetRobotModel(robot_model);
+  planner_->SetRobot(robot_model, motion);
 
-  // Create robot scene
+  // Debug: create robot scene
   auto rand01 = []()
   { return rand() / 2147483647.; };
   auto rand = [rand01](double low, double high)
@@ -32,21 +33,19 @@ void PlannerWindow::SetRobotModel(const std::shared_ptr<robot::RobotModel>& robo
   auto rand_range = [rand01](double low, double range)
   { return low + rand01() * range; };
 
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 10; i++)
   {
     auto robot_scene = std::make_shared<RobotScene>(robot_model_, scene_->GetRootNode());
-
-    robot_scene->SetJointValue("torso_lift_joint", rand(0.2, 0.23));
-    robot_scene->SetJointValue("shoulder_pan_joint", rand_range(1, 1.57 / 10.));
-    robot_scene->SetJointValue("shoulder_lift_joint", rand_range(1, 1.57 / 10.));
-    robot_scene->SetJointValue("upperarm_roll_joint", rand_range(-1, 1.57 / 10.));
-    robot_scene->SetJointValue("elbow_flex_joint", rand_range(-1, 1.57 / 10.));
-    robot_scene->SetJointValue("forearm_roll_joint", rand_range(1, 1.57 / 10.));
-    robot_scene->SetJointValue("wrist_flex_joint", rand_range(-1, 1.57 / 10.));
-    robot_scene->SetJointValue("wrist_roll_joint", rand_range(-1, 1.57 / 10.));
+    for (const auto& joint_name : motion->GetBodyJoints())
+    {
+      auto joint = robot_model->GetJoint(joint_name);
+      robot_scene->SetJointValue(joint_name, rand(joint->GetLowerLimit(), joint->GetUpperLimit()));
+    }
 
     robot_scenes_.push_back(robot_scene);
   }
+
+  UpdateScene(scene_);
 }
 
 void PlannerWindow::SetEnvironment(const std::shared_ptr<Environment>& environment)

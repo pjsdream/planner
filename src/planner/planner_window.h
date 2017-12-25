@@ -7,6 +7,7 @@
 #include "planner/rendering/robot_scene.h"
 #include "planner/planner.h"
 #include "planner/environment/environment.h"
+#include "planner/motion/robot_motion.h"
 
 namespace planner
 {
@@ -15,7 +16,7 @@ class PlannerWindow : public renderer::RendererWindow
 public:
   PlannerWindow();
 
-  void SetRobotModel(const std::shared_ptr<robot::RobotModel>& robot_model);
+  void SetRobot(const std::shared_ptr<robot::RobotModel>& robot_model, const std::shared_ptr<RobotMotion>& motion);
   void SetEnvironment(const std::shared_ptr<Environment>& environment);
 
 protected:

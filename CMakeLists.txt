@@ -94,5 +94,5 @@ add_executable(planner
   src/json/json.cc
   src/json/json_loader.h
   src/json/json_loader.cc
-  src/robot/robot_link.h src/robot/robot_joint.h src/robot/robot_joint.cc src/robot/robot_model.h src/robot/robot_model_loader.h src/robot/robot_model_loader.cc src/robot/robot_model.cc src/planner/rendering/robot_scene.h src/planner/rendering/robot_scene.cc src/planner/planner.h src/planner/planner.cc src/planner/environment/environment.h src/planner/environment/environment_loader.h src/planner/environment/environment_loader.cc src/planner/environment/object.h src/shape/shape.h src/shape/cube.h)
+  src/robot/robot_link.h src/robot/robot_joint.h src/robot/robot_joint.cc src/robot/robot_model.h src/robot/robot_model_loader.h src/robot/robot_model_loader.cc src/robot/robot_model.cc src/planner/rendering/robot_scene.h src/planner/rendering/robot_scene.cc src/planner/planner.h src/planner/planner.cc src/planner/environment/environment.h src/planner/environment/environment_loader.h src/planner/environment/environment_loader.cc src/planner/environment/object.h src/shape/shape.h src/shape/cube.h src/planner/motion/robot_motion.h src/planner/motion/robot_motion_loader.h src/planner/motion/robot_motion_loader.cc src/planner/path/path.h src/planner/path/path.cc)
 target_link_libraries(planner renderer)
