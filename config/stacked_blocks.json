@@ -1,0 +1,91 @@
+[
+  {
+    "name": "table",
+    "type": "static obstacle",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [0.6, 0.3, 0.2, 1],
+      "size": [1, 2, 0.7],
+      "xyz": [0.7, 0, 0.35],
+      "rpy": [0, 0, 0]
+    }
+  },
+  {
+    "name": "red block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [1, 0, 0, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.7, -0.2, 0.74445],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  },
+  {
+    "name": "green block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [0, 1, 0, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.7, -0.2, 0.83335],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  },
+  {
+    "name": "blue block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [0, 0, 1, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.7, -0.2, 0.92225],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  },
+  {
+    "name": "yellow block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [1, 1, 0, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.9, 0.2, 0.74445],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  },
+  {
+    "name": "cyan block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [0, 1, 1, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.9, 0.4, 0.74445],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  },
+  {
+    "name": "magenta block",
+    "type": "interactable object",
+    "geometry": {
+      "shape": "cube",
+      "rgba": [1, 0, 1, 1],
+      "size": [0.0889, 0.0889, 0.0889],
+      "xyz": [0.9, 0.6, 0.74445],
+      "rpy": [0, 0, 0],
+      "grip_xyz": [0, 0, 0.03],
+      "grip_rpy": [0, 0, 1.57079632679]
+    }
+  }
+]

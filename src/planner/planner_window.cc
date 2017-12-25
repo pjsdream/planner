@@ -33,7 +33,7 @@ void PlannerWindow::SetRobot(const std::shared_ptr<robot::RobotModel>& robot_mod
   auto rand_range = [rand01](double low, double range)
   { return low + rand01() * range; };
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 1; i++)
   {
     auto robot_scene = std::make_shared<RobotScene>(robot_model_, scene_->GetRootNode());
     for (const auto& joint_name : motion->GetBodyJoints())
