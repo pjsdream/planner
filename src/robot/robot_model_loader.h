@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "robot/robot_model.h"
+#include <robot/robot_model.h>
 
 namespace robot
 {
@@ -15,19 +15,19 @@ public:
     package_directories_.push_back(package_directory);
   }
 
-  std::shared_ptr<RobotModel> LoadFromUrdfFile(const std::string& filename);
+  std::shared_ptr<robot::RobotModel> LoadFromUrdfFile(const std::string& filename);
 
 private:
   std::vector<std::string> package_directories_;
 
   std::string SubstitutePackageDirectory(const std::string& filename);
 
-  std::unordered_map<std::string, std::shared_ptr<RobotLink>> links_;
-  std::unordered_map<std::string, std::shared_ptr<RobotJoint>> joints_;
+  std::unordered_map<std::string, std::shared_ptr<robot::RobotLink>> links_;
+  std::unordered_map<std::string, std::shared_ptr<robot::RobotJoint>> joints_;
   std::unordered_map<std::string, std::vector<std::string>> link_child_joint_names_;
   std::unordered_map<std::string, std::string> joint_child_link_name_;
 
-  void ConstructTree(const std::shared_ptr<RobotLink>& link);
+  void ConstructTree(const std::shared_ptr<robot::RobotLink>& link);
 };
 }
 

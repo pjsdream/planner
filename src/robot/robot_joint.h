@@ -33,6 +33,16 @@ public:
   {
   }
 
+  auto GetType() const
+  {
+    return type_;
+  }
+
+  bool IsContinuous() const
+  {
+    return type_ == JointType::CONTINUOUS;
+  }
+
   const auto& GetName() const
   {
     return name_;
@@ -76,6 +86,7 @@ public:
 
   double Clamp(double joint_value) const;
   Eigen::Affine3d Transform(double joint_value) const;
+  Eigen::Matrix4d TransformDerivative(double joint_value) const;
 
   //
   // Tree structure
@@ -97,6 +108,8 @@ public:
 
   std::shared_ptr<RobotLink> GetParentLink()
   {
+    if (parent_link_.expired())
+      return nullptr;
     return parent_link_.lock();
   }
 

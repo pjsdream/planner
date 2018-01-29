@@ -10,7 +10,7 @@ class SceneObject
 public:
   SceneObject() = delete;
   explicit SceneObject(const std::string& name)
-      : name_(name), has_global_color_(true), global_color_{0.8f, 0.8f, 0.8f}
+      : name_(name), has_global_color_(false), global_color_{0.8f, 0.8f, 0.8f}
   {
   }
 

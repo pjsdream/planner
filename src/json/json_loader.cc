@@ -1,5 +1,6 @@
 #include "json/json_loader.h"
 
+#include <iostream>
 #include <stack>
 
 namespace planner

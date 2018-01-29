@@ -85,7 +85,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>renderer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>renderer.lib;shape.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -125,19 +125,31 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>renderer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>renderer.lib;shape.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\json\json.cc" />
     <ClCompile Include="..\..\src\json\json_loader.cc" />
+    <ClCompile Include="..\..\src\planner\config\config_loader.cc" />
+    <ClCompile Include="..\..\src\planner\cost\cost_grip_pose.cc" />
     <ClCompile Include="..\..\src\planner\environment\environment_loader.cc" />
     <ClCompile Include="..\..\src\planner\main.cc" />
+    <ClCompile Include="..\..\src\planner\path\path.cc" />
     <ClCompile Include="..\..\src\planner\planner.cc" />
     <ClCompile Include="..\..\src\planner\planner_window.cc" />
+    <ClCompile Include="..\..\src\planner\rendering\linear_robot_scene.cc" />
     <ClCompile Include="..\..\src\planner\rendering\robot_scene.cc" />
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_joint.cc" />
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_model.cc" />
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_model_factory.cc" />
+    <ClCompile Include="..\..\src\planner\robot\robot_state.cc" />
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_model.cc" />
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_model_factory.cc" />
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_state.cc" />
     <ClCompile Include="..\..\src\robot\robot_joint.cc" />
     <ClCompile Include="..\..\src\robot\robot_model.cc" />
     <ClCompile Include="..\..\src\robot\robot_model_loader.cc" />
@@ -146,16 +158,38 @@
     <ClInclude Include="..\..\lib\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\json\json.h" />
     <ClInclude Include="..\..\src\json\json_loader.h" />
+    <ClInclude Include="..\..\src\planner\config\config.h" />
+    <ClInclude Include="..\..\src\planner\config\config_loader.h" />
+    <ClInclude Include="..\..\src\planner\cost\cost.h" />
+    <ClInclude Include="..\..\src\planner\cost\cost_grip_pose.h" />
     <ClInclude Include="..\..\src\planner\environment\environment.h" />
     <ClInclude Include="..\..\src\planner\environment\environment_loader.h" />
     <ClInclude Include="..\..\src\planner\environment\object.h" />
+    <ClInclude Include="..\..\src\planner\path\path.h" />
     <ClInclude Include="..\..\src\planner\planner.h" />
     <ClInclude Include="..\..\src\planner\planner_window.h" />
+    <ClInclude Include="..\..\src\planner\rendering\linear_robot_scene.h" />
     <ClInclude Include="..\..\src\planner\rendering\robot_scene.h" />
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_joint.h" />
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_link.h" />
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_model.h" />
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_model_factory.h" />
+    <ClInclude Include="..\..\src\planner\robot\robot_state.h" />
+    <ClInclude Include="..\..\src\planner\robot\screw_motion.h" />
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_model.h" />
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_model_factory.h" />
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_state.h" />
     <ClInclude Include="..\..\src\robot\robot_joint.h" />
     <ClInclude Include="..\..\src\robot\robot_link.h" />
     <ClInclude Include="..\..\src\robot\robot_model.h" />
     <ClInclude Include="..\..\src\robot\robot_model_loader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\fetch_ros\fetch_description\robots\fetch.urdf" />
+    <None Include="..\..\config\environment.json" />
+    <None Include="..\..\config\planning_config.json" />
+    <None Include="..\..\config\sample_environment.json" />
+    <None Include="..\..\config\stacked_blocks.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -103,6 +103,11 @@ std::vector<Json>& Json::toArray()
   return array_;
 }
 
+const std::unordered_map<std::string, std::shared_ptr<Json>>& Json::toObject() const
+{
+  return object_;
+}
+
 void Json::set(bool v)
 {
   clear();

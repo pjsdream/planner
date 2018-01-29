@@ -1,20 +1,43 @@
 #include "planner/planner.h"
+#include "planner/environment/environment_loader.h"
+#include "robot/robot_model_loader.h"
+#include "planner/robot/linear_robot_model_factory.h"
 
 namespace planner
 {
-void Planner::SetRobot(const std::shared_ptr<robot::RobotModel>& robot_model,
-                       const std::shared_ptr<RobotMotion>& motion)
+void Planner::SetConfig(const std::shared_ptr<Config>& config)
 {
-  robot_model_ = robot_model;
-  motion_ = motion;
+  EnvironmentLoader environment_loader;
+  environment_ = environment_loader.LoadEnvironmentFromFile(config->GetEnvironmentFilename());
 
-  path_ = std::make_shared<Path>(motion->GetBodyJoints());
+  // TODO: load robot model
+  robot::RobotModelLoader robot_model_loader;
+  robot_model_loader.AddPackageDirectory(config->GetRobotPackageDirectory());
+  auto robot_model = robot_model_loader.LoadFromUrdfFile(config->GetRobotUrdf());
+  auto body_joints = config->GetBodyJoints();
+
+  LinearRobotModelFactory robot_model_factory(robot_model);
+  for (auto body_joint : body_joints)
+    robot_model_factory.AddActiveJoint(body_joint);
+  for (auto pair : config->GetDefaultJointValues())
+    robot_model_factory.SetJointValue(pair.first, pair.second);
+  robot_model_factory.SetEndeffectorLink(config->GetGrippingPositionLink());
+  robot_model_ = robot_model_factory.CreateRobotModel();
 }
 
-void Planner::UpdateEnvironment(const std::shared_ptr<Environment>& environment)
+void Planner::SetInitialRobotState(const Eigen::VectorXd& state)
 {
-  environment_ = environment;
+  path_->SetInitialPoint(state);
+}
 
-  // TODO: get obstacles from the environment
+void Planner::SetInitialZeroRobotState()
+{
+  // TODO
+  /*
+  Eigen::VectorXd state(1);
+  state.setZero();
+
+  path_->SetInitialPoint(state);
+  */
 }
 }

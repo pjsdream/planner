@@ -22,6 +22,15 @@ public:
     return objects_;
   }
 
+  std::shared_ptr<Object> GetEnvironmentObject(const std::string& object_name)
+  {
+    for (auto object : objects_)
+      if (object_name == object->GetName())
+        return object;
+
+    return nullptr;
+  }
+
 private:
   std::vector<std::shared_ptr<Object>> objects_;
 };

@@ -6,7 +6,7 @@ namespace robot
 {
 namespace
 {
-static Eigen::Affine3d ReadOrigin(const tinyxml2::XMLElement* element)
+Eigen::Affine3d ReadOrigin(const tinyxml2::XMLElement* element)
 {
   Eigen::Affine3d origin = Eigen::Affine3d::Identity();
 
@@ -149,7 +149,6 @@ std::shared_ptr<RobotModel> RobotModelLoader::LoadFromUrdfFile(const std::string
         }
       }
       
-      printf("link name %s\n", link_name.c_str());
       links_[link_name] = link;
     }
 
@@ -186,7 +185,6 @@ std::shared_ptr<RobotModel> RobotModelLoader::LoadFromUrdfFile(const std::string
       }
       joint->SetLimit(lower, upper);
       
-      printf("joint name %s\n", joint_name.c_str());
       joints_[joint_name] = joint;
     }
 

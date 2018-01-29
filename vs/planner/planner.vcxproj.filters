@@ -26,6 +26,21 @@
     <Filter Include="lib\tinyxml2">
       <UniqueIdentifier>{ea854005-3bc4-4cae-a63e-5cfb68f412b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\planner\path">
+      <UniqueIdentifier>{f2205a5e-6a0a-4b90-be0f-af32fc7242f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\planner\robot">
+      <UniqueIdentifier>{2be09c5d-4d36-41e3-9432-005db07ab71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{70ddc812-ac1e-4285-bf1d-9bd80772cb03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\planner\cost">
+      <UniqueIdentifier>{cbf95bd5-8df2-4ae4-8af4-32f8c37a1be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\planner\config">
+      <UniqueIdentifier>{e6d735ef-3297-4849-8a58-84f67aae2e87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\planner\main.cc">
@@ -60,6 +75,39 @@
     </ClCompile>
     <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp">
       <Filter>lib\tinyxml2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\path\path.cc">
+      <Filter>Source Files\planner\path</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\robot_state.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\cost\cost_grip_pose.cc">
+      <Filter>Source Files\planner\cost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\config\config_loader.cc">
+      <Filter>Source Files\planner\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_model_factory.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_model.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\linear_robot_joint.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\rendering\linear_robot_scene.cc">
+      <Filter>Source Files\planner\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_model.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_model_factory.cc">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\planner\robot\screw_robot_state.cc">
+      <Filter>Source Files\planner\robot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,5 +150,67 @@
     <ClInclude Include="..\..\lib\tinyxml2\tinyxml2.h">
       <Filter>lib\tinyxml2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\planner\path\path.h">
+      <Filter>Source Files\planner\path</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\robot_state.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\cost\cost.h">
+      <Filter>Source Files\planner\cost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\cost\cost_grip_pose.h">
+      <Filter>Source Files\planner\cost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\config\config.h">
+      <Filter>Source Files\planner\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\config\config_loader.h">
+      <Filter>Source Files\planner\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_model_factory.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_model.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_link.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\linear_robot_joint.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\rendering\linear_robot_scene.h">
+      <Filter>Source Files\planner\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_model.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_model_factory.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\screw_motion.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\planner\robot\screw_robot_state.h">
+      <Filter>Source Files\planner\robot</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\config\environment.json">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\config\sample_environment.json">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\config\stacked_blocks.json">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\..\fetch_ros\fetch_description\robots\fetch.urdf">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\..\config\planning_config.json">
+      <Filter>resource</Filter>
+    </None>
   </ItemGroup>
 </Project>

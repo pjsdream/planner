@@ -29,9 +29,6 @@
     <Filter Include="Source Files\window">
       <UniqueIdentifier>{da560c3a-8247-401b-ad8b-2732469314c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\test">
-      <UniqueIdentifier>{282d731d-4be5-4105-9d15-a84c542462be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib">
       <UniqueIdentifier>{178a2326-520a-47cc-9171-87a6e0391b6b}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\renderer\window\renderer_window.cc">
       <Filter>Source Files\window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\renderer\test\main.cc">
-      <Filter>Source Files\test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\renderer\camera\camera.cc">
       <Filter>Source Files\camera</Filter>

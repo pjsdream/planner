@@ -47,6 +47,7 @@ public:
   std::string toString();
   const std::vector<Json>& toArray() const;
   std::vector<Json>& toArray();
+  const std::unordered_map<std::string, std::shared_ptr<Json>>& toObject() const;
 
   void set(bool v);
   void set(int v);

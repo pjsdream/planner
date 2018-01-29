@@ -13,7 +13,7 @@ void RobotScene::AddRobotScene(const std::shared_ptr<renderer::SceneNode>& scene
                                const std::shared_ptr<robot::RobotLink>& robot_link)
 {
   int counter = 0;
-  for (const auto& visual : robot_link->GetCollisions())
+  for (const auto& visual : robot_link->GetVisuals())
   {
     // Prepare mesh
     scene_node->LoadMeshObject(robot_link->GetName() + "[" + std::to_string(counter) + "]", visual.mesh_filename);

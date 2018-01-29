@@ -1,4 +1,4 @@
-#include "planner/motion/robot_motion_loader.h"
+#include "planner/config/config_loader.h"
 
 #include <Eigen/Dense>
 
@@ -6,7 +6,7 @@
 
 namespace planner
 {
-std::shared_ptr<RobotMotion> RobotMotionLoader::LoadRobotMotionFromFile(const std::string& filename)
+std::shared_ptr<Config> ConfigLoader::LoadConfigFromFile(const std::string& filename)
 {
   JsonLoader json_loader;
   Json json{json_loader.loadJson(filename)};
@@ -14,6 +14,10 @@ std::shared_ptr<RobotMotion> RobotMotionLoader::LoadRobotMotionFromFile(const st
   std::vector<std::string> navigation_joints;
   std::vector<std::string> body_joints;
   std::vector<std::string> gripper_joints;
+
+  auto robot_urdf = json["robot_urdf"].toString();
+  auto robot_package_directory = json["robot_package_directory"].toString();
+  auto environment_filename = json["environment_filename"].toString();
 
   auto json_navigation = json["navigation"];
   auto& json_navigation_joints = json_navigation["joints"].toArray();
@@ -32,15 +36,19 @@ std::shared_ptr<RobotMotion> RobotMotionLoader::LoadRobotMotionFromFile(const st
 
   auto gripping_position = json_gripper["gripping_position"];
   auto gripping_position_link = gripping_position["link"].toString();
-  auto gripping_position_offset = Eigen::Vector3d(gripping_position["xyz"][0].toDouble(),
-                                                  gripping_position["xyz"][1].toDouble(),
-                                                  gripping_position["xyz"][2].toDouble());
   auto gripping_position_width = gripping_position["width"].toDouble();
 
-  auto motion = std::make_shared<RobotMotion>();
-  motion->SetNavigationJoints(navigation_joints);
-  motion->SetBodyJoints(body_joints);
-  motion->SetGripper(gripper_joints, gripping_position_link, gripping_position_offset, gripping_position_width);
-  return motion;
+  auto config = std::make_shared<Config>();
+  config->SetRobotUrdf(robot_urdf);
+  config->SetRobotPackageDirectory(robot_package_directory);
+  config->SetEnvironmentFilename(environment_filename);
+  config->SetNavigationJoints(navigation_joints);
+  config->SetBodyJoints(body_joints);
+  config->SetGripper(gripper_joints, gripping_position_link, gripping_position_width);
+
+  auto json_default_joint_values = json["default_joint_values"];
+  for (auto pair : json_default_joint_values.toObject())
+    config->AddDefaultJointValues(pair.first, pair.second->toDouble());
+  return config;
 }
 }

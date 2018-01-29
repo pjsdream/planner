@@ -112,6 +112,8 @@ public:
 
   std::shared_ptr<RobotJoint> GetParentJoint()
   {
+    if (parent_joint_.expired())
+      return nullptr;
     return parent_joint_.lock();
   }
 

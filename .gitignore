@@ -41,6 +41,7 @@ cmake-*
 lib
 
 # vs
+.vs
 vs/.vs
 vs/*/x64
 

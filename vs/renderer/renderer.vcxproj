@@ -160,7 +160,6 @@
     <ClCompile Include="..\..\src\renderer\gl\shader\shader.cc" />
     <ClCompile Include="..\..\src\renderer\scene\scene.cc" />
     <ClCompile Include="..\..\src\renderer\scene\scene_node.cc" />
-    <ClCompile Include="..\..\src\renderer\test\main.cc" />
     <ClCompile Include="..\..\src\renderer\window\renderer_base_window.cc" />
     <ClCompile Include="..\..\src\renderer\window\renderer_context.cc" />
     <ClCompile Include="..\..\src\renderer\window\renderer_window.cc" />
