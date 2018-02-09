@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{ad5bdc9e-e363-4593-98f4-581a419b0089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\planning">
+      <UniqueIdentifier>{24cf2892-6d84-4c40-a549-8b8d6fa178b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{b61d9849-f4ad-406e-9dc8-7dbf4dc2bae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{f31fc6f5-9a45-431a-a09b-cb6242df4d49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\planning\planner.cc">
+      <Filter>Source Files\planning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\camera.cc">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\rendering_window.cc">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\glad\glad.c">
+      <Filter>Libraries</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\planning\planner.h">
+      <Filter>Source Files\planning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\camera.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\rendering_window.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\shader\color.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\color.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\light.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\light.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
