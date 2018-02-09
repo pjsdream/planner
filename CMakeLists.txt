@@ -13,6 +13,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # eigen
 find_package(Eigen3 REQUIRED)
 
+# assimp
+find_package(assimp REQUIRED)
+
 # glfw
 find_package(glfw3 3.2 REQUIRED)
 
@@ -32,8 +35,16 @@ set(SIMPLAN_SOURCE_FILES
   lib/glad/glad.h
   lib/glad/glad.c
 
+  # lodepng
+  lib/lodepng/lodepng.h
+  lib/lodepng/lodepng.cpp
+
   src/rendering/rendering_window.h
-  src/rendering/rendering_window.cc src/planning/planner.h src/planning/planner.cc src/rendering/camera.h src/rendering/camera.cc)
+  src/rendering/rendering_window.cc
+  src/planning/planner.h
+  src/planning/planner.cc
+  src/rendering/camera.h
+  src/rendering/camera.cc src/shape/mesh.cc src/shape/mesh.h src/resource/raw_mesh_manager.h src/resource/raw_mesh.h src/resource/raw_mesh_manager.cc src/resource/texture.h src/resource/texture_manager.h src/resource/texture_manager.cc)
 
 add_executable(test_rendering
   ${SIMPLAN_SOURCE_FILES}
@@ -42,5 +53,6 @@ add_executable(test_rendering
 
 target_link_libraries(test_rendering
   Threads::Threads
+  ${ASSIMP_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
   glfw)

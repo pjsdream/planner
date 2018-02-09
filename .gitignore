@@ -1,2 +1,4 @@
 bin
 lib
+.idea
+cmake-build-*

@@ -23,6 +23,7 @@ public:
 
   void MouseButton(int button, int action, int mods, double xpos, double ypos);
   void CursorPos(double xpos, double ypos);
+  void Resize(int width, int height);
 
 private:
   void LoadShaders();
@@ -35,11 +36,14 @@ private:
 
   GLuint light_program_;
   GLuint color_program_;
+  GLuint texture_program_;
 
-  int mouse_button_;
-  bool mouse_pressed_;
+  bool mouse_button_pressed_[2];
   double last_mouse_xpos_;
   double last_mouse_ypos_;
+
+  int width_;
+  int height_;
 };
 }
 
