@@ -23,18 +23,15 @@ struct Material
   float shininess;
 };
 
+const int NUM_LIGHTS = 8;
+
 uniform vec3 eye_position;
-uniform Light lights[8]; // Each component takes 7. Whole array takes 56
+uniform Light lights[NUM_LIGHTS];
 
-uniform bool has_material;
-uniform Material material; // Takes 4
+bool has_diffuse_texture;
+sampler2D diffuse_texture;
 
-uniform bool has_texture;
-uniform sampler2D material_texture;
-
-uniform float alpha;
-
-in vec2 texture_coord;
+in vec2 frag_tex_coord;
 in vec3 surface_position;
 in vec3 surface_normal;
 in vec3 surface_color;
@@ -53,7 +50,7 @@ vec3 colorDirectionalLight(Light light, Material material, vec3 N, vec3 V)
   float specular_strength = pow( clamp(VdotR, 0.f, 1.f), material.shininess );
 
   vec3 ambient = light.ambient * material.ambient;
-  vec3 diffuse = light.diffuse * material.diffuse * diffuse_strength;
+  vec3 diffuse = light.diffuse * diffuse * diffuse_strength;
   vec3 specular = light.specular * material.specular * specular_strength;
 
   return ambient + diffuse + specular;
@@ -103,20 +100,14 @@ void main()
 {
   Material point_material;
 
-  if (has_material)
-    point_material = material;
+  if (has_diffuse_texture)
+  {
+    point_material.diffuse = texture(material_texture, frag_tex_coord).rgb;
+    point_material.ambient = texture(material_texture, frag_tex_coord).rgb;
+  }
   else
   {
-    point_material.ambient = surface_color;
-    point_material.diffuse = surface_color;
-    point_material.specular = vec3(1.f, 1.f, 1.f) * 0.01f;
-    point_material.shininess = 100.f;
-  }
-
-  if (has_texture)
-  {
-    point_material.diffuse = texture(material_texture, texture_coord).rgb;
-    point_material.ambient = texture(material_texture, texture_coord).rgb;
+    point_material.diffuse =
   }
 
   vec3 N = normalize(surface_normal);
@@ -124,7 +115,7 @@ void main()
 
   vec3 total_color = vec3(0.f, 0.f, 0.f);
 
-  for (int i=0; i<8; i++)
+  for (int i=0; i<NUM_LIGHTS; i++)
   {
     if (lights[i].use)
     {
@@ -135,5 +126,5 @@ void main()
     }
   }
 
-  out_color = vec4(fog(total_color), alpha);
+  out_color = vec4(fog(total_color), 1.f);
 }
