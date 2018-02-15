@@ -9,6 +9,8 @@
 #include <GLFW/glfw3.h>
 
 #include "rendering/camera.h"
+#include "rendering/shader/color_shader.h"
+#include "rendering/shader/light_shader.h"
 
 namespace simplan
 {
@@ -27,16 +29,13 @@ public:
 
 private:
   void LoadShaders();
-  GLuint LoadShaderFromFile(const std::string& filename, GLenum type);
-  GLuint LinkShaders(const std::vector<GLuint>& shaders);
 
   GLFWwindow* window_;
 
   std::shared_ptr<Camera> camera_;
 
-  GLuint light_program_;
-  GLuint color_program_;
-  GLuint texture_program_;
+  std::shared_ptr<ColorShader> color_shader_;
+  std::shared_ptr<LightShader> light_shader_;
 
   bool mouse_button_pressed_[2];
   double last_mouse_xpos_;

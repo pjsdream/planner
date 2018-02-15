@@ -107,7 +107,8 @@ void main()
   }
   else
   {
-    point_material.diffuse =
+    point_material.diffuse = vec3(1.f, 0.f, 0.f);
+    point_material.ambient = vec3(1.f, 0.f, 0.f);
   }
 
   vec3 N = normalize(surface_normal);

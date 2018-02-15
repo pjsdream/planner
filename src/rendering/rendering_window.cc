@@ -80,28 +80,10 @@ bool RenderingWindow::ShouldClose() const
 
 void RenderingWindow::LoadShaders()
 {
-#ifdef _WIN32
-  auto light_vert = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.vert", GL_VERTEX_SHADER);
-  auto light_frag = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.frag", GL_FRAGMENT_SHADER);
-#else
-  auto light_vert = LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/light.vert", GL_VERTEX_SHADER);
-  auto
-      light_frag = LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/light.frag", GL_FRAGMENT_SHADER);
-#endif
-  std::vector<GLuint> light_shaders{light_vert, light_frag};
-  light_program_ = LinkShaders(light_shaders);
+  color_shader_ = std::make_shared<ColorShader>();
+  light_shader_ = std::make_shared<LightShader>();
 
-#ifdef _WIN32
-  auto color_vert = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\color.vert", GL_VERTEX_SHADER);
-  auto color_frag = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\color.frag", GL_FRAGMENT_SHADER);
-#else
-  auto color_vert = LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/color.vert", GL_VERTEX_SHADER);
-  auto
-      color_frag = LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/color.frag", GL_FRAGMENT_SHADER);
-#endif
-  std::vector<GLuint> color_shaders{color_vert, color_frag};
-  color_program_ = LinkShaders(color_shaders);
-
+  /*
 #ifdef _WIN32
   auto texture_vert = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\texture.vert", GL_VERTEX_SHADER);
   auto texture_frag = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\texture.frag", GL_FRAGMENT_SHADER);
@@ -113,93 +95,7 @@ void RenderingWindow::LoadShaders()
 #endif
   std::vector<GLuint> texture_shaders{texture_vert, texture_frag};
   texture_program_ = LinkShaders(texture_shaders);
-}
-
-GLuint RenderingWindow::LoadShaderFromFile(const std::string& filename, GLenum type)
-{
-  FILE* fp = fopen(filename.c_str(), "rb");
-  if (fp == NULL)
-  {
-    std::cerr << "Shader file path \"" << filename << "\" not found\n";
-    return 0;
-  }
-
-  fseek(fp, 0, SEEK_END);
-  int len = ftell(fp);
-  fseek(fp, 0, SEEK_SET);
-
-  GLchar* source = new GLchar[len + 1];
-  fread(source, 1, len, fp);
-  fclose(fp);
-
-  source[len] = 0;
-
-  const GLchar* const_source = const_cast<const GLchar*>(source);
-
-  GLuint shader = glCreateShader(type);
-
-  glShaderSource(shader, 1, &const_source, NULL);
-  delete[] source;
-
-  glCompileShader(shader);
-
-  GLint compiled;
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-
-  if (!compiled)
-  {
-    GLsizei len;
-    glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
-
-    GLchar* log = new GLchar[len + 1];
-    glGetShaderInfoLog(shader, len, &len, log);
-    std::cerr << "Shader compilation failed:" << "\n"
-              << log << "\n";
-    delete[] log;
-
-    // Don't need the shader anymore
-    glDeleteShader(shader);
-  }
-
-  return shader;
-}
-
-GLuint RenderingWindow::LinkShaders(const std::vector<GLuint>& shaders)
-{
-  GLuint program = glCreateProgram();
-
-  for (GLuint shader : shaders)
-    glAttachShader(program, shader);
-
-  glLinkProgram(program);
-
-  GLint linked;
-  glGetProgramiv(program, GL_LINK_STATUS, &linked);
-
-  if (!linked)
-  {
-    GLsizei len;
-    glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
-
-    GLchar* log = new GLchar[len + 1];
-    glGetProgramInfoLog(program, len, &len, log);
-    std::cerr << "Shader linking failed: " << "\n"
-              << log << "\n";
-    delete[] log;
-
-    // Don't need shaders and program anymore
-    glDeleteProgram(program);
-    for (GLuint shader : shaders)
-      glDeleteShader(shader);
-
-    return 0;
-  }
-
-  // Detach shaders after a successful link
-  for (GLuint shader : shaders)
-    glDetachShader(program, shader);
-
-  return program;
+   */
 }
 
 void RenderingWindow::Run()
@@ -237,15 +133,6 @@ void RenderingWindow::Run()
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
   glEnableVertexAttribArray(1);
 
-  GLint location_projection = glGetUniformLocation(color_program_, "projection");
-  GLint location_view = glGetUniformLocation(color_program_, "view");
-  GLint location_model = glGetUniformLocation(color_program_, "model");
-
-  GLint texture_location_projection = glGetUniformLocation(texture_program_, "projection");
-  GLint texture_location_view = glGetUniformLocation(texture_program_, "view");
-  GLint texture_location_model = glGetUniformLocation(texture_program_, "model");
-  GLint location_texture = glGetUniformLocation(texture_program_, "material_texture");
-
   Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
 
   // mesh
@@ -259,23 +146,16 @@ void RenderingWindow::Run()
 
     glViewport(0, 0, width_, height_);
 
-    glUseProgram(color_program_);
-
-    Eigen::Matrix4f projection = camera_->ProjectionMatrix().cast<float>();
-    Eigen::Matrix4f view = camera_->ViewMatrix().cast<float>();
-
-    glUniformMatrix4fv(location_projection, 1, GL_FALSE, projection.data());
-    glUniformMatrix4fv(location_view, 1, GL_FALSE, view.data());
-    glUniformMatrix4fv(location_model, 1, GL_FALSE, model.data());
+    color_shader_->Use();
+    color_shader_->LoadCamera(camera_);
+    color_shader_->LoadModel(Eigen::Matrix4d::Identity());
 
     glBindVertexArray(vao);
     glDrawArrays(GL_LINES, 0, 6);
 
-    glUseProgram(texture_program_);
-
-    glUniformMatrix4fv(texture_location_projection, 1, GL_FALSE, projection.data());
-    glUniformMatrix4fv(texture_location_view, 1, GL_FALSE, view.data());
-    glUniformMatrix4fv(texture_location_model, 1, GL_FALSE, model.data());
+    light_shader_->Use();
+    light_shader_->LoadCamera(camera_);
+    light_shader_->LoadModel(Eigen::Matrix4d::Identity());
 
     // Mesh loader
     auto mesh = RawMeshManager::LoadFromFile(
@@ -315,6 +195,7 @@ void RenderingWindow::Run()
 
       if (texture != nullptr && texture_id == 0)
       {
+        // TODO: pass the gl functions to gl texture resource manager
         glGenTextures(1, &texture_id);
 
         glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -333,7 +214,7 @@ void RenderingWindow::Run()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        glUniform1i(location_texture, 0);
+        light_shader_->LoadTexture(texture);
       }
 
       glBindVertexArray(mesh_vao);

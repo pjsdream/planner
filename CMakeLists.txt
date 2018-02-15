@@ -44,7 +44,7 @@ set(SIMPLAN_SOURCE_FILES
   src/planning/planner.h
   src/planning/planner.cc
   src/rendering/camera.h
-  src/rendering/camera.cc src/shape/mesh.cc src/shape/mesh.h src/resource/raw_mesh_manager.h src/resource/raw_mesh.h src/resource/raw_mesh_manager.cc src/resource/texture.h src/resource/texture_manager.h src/resource/texture_manager.cc src/rendering/light.h src/rendering/shader.h src/rendering/shader.cc)
+  src/rendering/camera.cc src/shape/mesh.cc src/shape/mesh.h src/resource/raw_mesh_manager.h src/resource/raw_mesh.h src/resource/raw_mesh_manager.cc src/resource/texture.h src/resource/texture_manager.h src/resource/texture_manager.cc src/rendering/light.h src/rendering/shader/shader.h src/rendering/shader/shader.cc src/rendering/shader/color_shader.h src/rendering/shader/color_shader.cc src/rendering/shader/light_shader.h src/rendering/shader/light_shader.cc)
 
 add_executable(test_rendering
   ${SIMPLAN_SOURCE_FILES}
