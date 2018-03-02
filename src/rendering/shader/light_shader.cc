@@ -1,5 +1,7 @@
 #include "rendering/shader/light_shader.h"
 
+#include <iostream>
+
 namespace simplan
 {
 LightShader::LightShader()
@@ -9,8 +11,8 @@ LightShader::LightShader()
   LoadVertexShader("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.vert");
   LoadFragmentShader("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.frag");
 #else
-  LoadVertexShader("/home/jaesungp/cpp_workspace/planner/src/shader/texture.vert");
-  LoadFragmentShader("/home/jaesungp/cpp_workspace/planner/src/shader/texture.frag");
+  LoadVertexShader("/home/jaesungp/cpp_workspace/planner/src/shader/light.vert");
+  LoadFragmentShader("/home/jaesungp/cpp_workspace/planner/src/shader/light.frag");
 #endif
 
   Link();
@@ -19,6 +21,32 @@ LightShader::LightShader()
   location_view_ = GetUniformLocation("view");
   location_model_ = GetUniformLocation("model");
   location_texture_ = GetUniformLocation("material_texture");
+
+  std::cout << location_projection_ << "\n"
+            << location_view_ << "\n"
+            << location_model_ << "\n"
+            << location_texture_ << "\n";
+
+  for (int i = 0; i < NUM_LIGHTS_; i++)
+  {
+    auto uniform_prefix = std::string("lights[") + std::to_string(i) + "]";
+
+    location_lights_use_[i] = GetUniformLocation(uniform_prefix + ".use");
+    location_lights_type_[i] = GetUniformLocation(uniform_prefix + ".type");
+    location_lights_position_[i] = GetUniformLocation(uniform_prefix + ".position");
+    location_lights_ambient_[i] = GetUniformLocation(uniform_prefix + ".ambient");
+    location_lights_diffuse_[i] = GetUniformLocation(uniform_prefix + ".diffuse");
+    location_lights_specular_[i] = GetUniformLocation(uniform_prefix + ".specular");
+    location_lights_attenuation_[i] = GetUniformLocation(uniform_prefix + ".attenuation");
+
+    std::cout << location_lights_use_[i] << "\n"
+              << location_lights_type_[i] << "\n"
+              << location_lights_position_[i] << "\n"
+              << location_lights_ambient_[i] << "\n"
+              << location_lights_diffuse_[i] << "\n"
+              << location_lights_specular_[i] << "\n"
+              << location_lights_attenuation_[i] << "\n";
+  }
 }
 
 LightShader::~LightShader()

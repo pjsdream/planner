@@ -28,6 +28,7 @@ protected:
   }
 
   GLuint GetUniformLocation(const char* name);
+  GLuint GetUniformLocation(const std::string& name);
 
 private:
   GLuint LoadShaderFromFile(const std::string& filename, GLenum type);

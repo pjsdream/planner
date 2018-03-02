@@ -29,7 +29,7 @@ uniform vec3 eye_position;
 uniform Light lights[NUM_LIGHTS];
 
 bool has_diffuse_texture;
-sampler2D diffuse_texture;
+uniform sampler2D diffuse_texture;
 
 in vec2 frag_tex_coord;
 in vec3 surface_position;
