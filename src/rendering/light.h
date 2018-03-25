@@ -1,5 +1,5 @@
-#ifndef SIMPLAN_LIGHT_H
-#define SIMPLAN_LIGHT_H
+#ifndef SIMPLAN_RENDERING_LIGHT_H_
+#define SIMPLAN_RENDERING_LIGHT_H_
 
 #include <Eigen/Dense>
 
@@ -15,14 +15,14 @@ struct Light
 
   Type type;
 
-  Eigen::Vector3d position;
+  Eigen::Vector3f position;
 
-  Eigen::Vector3d ambient;
-  Eigen::Vector3d diffuse;
-  Eigen::Vector3d specular;
+  Eigen::Vector3f ambient;
+  Eigen::Vector3f diffuse;
+  Eigen::Vector3f specular;
 
-  Eigen::Vector3d attenuation;
+  Eigen::Vector3f attenuation;
 };
 }
 
-#endif //SIMPLAN_LIGHT_H
+#endif // SIMPLAN_RENDERING_LIGHT_H_

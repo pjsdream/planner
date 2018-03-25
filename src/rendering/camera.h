@@ -37,14 +37,14 @@ public:
     projection_type_ = ProjectionType::ORTHO;
   }
 
-  void SetNear(double near)
+  void SetNear(double Near)
   {
-    near_ = near;
+    near_ = Near;
   }
 
-  void SetFar(double near)
+  void SetFar(double Near)
   {
-    near_ = near;
+    near_ = Near;
   }
 
   void LookAt(const Eigen::Vector3d& eye, const Eigen::Vector3d& center)

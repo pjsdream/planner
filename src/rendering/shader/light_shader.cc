@@ -20,12 +20,10 @@ LightShader::LightShader()
   location_projection_ = GetUniformLocation("projection");
   location_view_ = GetUniformLocation("view");
   location_model_ = GetUniformLocation("model");
-  location_texture_ = GetUniformLocation("material_texture");
+  location_model_inverse_transpose_ = GetUniformLocation("model_inverse_transpose");
 
-  std::cout << location_projection_ << "\n"
-            << location_view_ << "\n"
-            << location_model_ << "\n"
-            << location_texture_ << "\n";
+  location_has_diffuse_texture_ = GetUniformLocation("has_diffuse_texture");
+  location_diffuse_texture_ = GetUniformLocation("diffuse_texture");
 
   for (int i = 0; i < NUM_LIGHTS_; i++)
   {
@@ -38,19 +36,24 @@ LightShader::LightShader()
     location_lights_diffuse_[i] = GetUniformLocation(uniform_prefix + ".diffuse");
     location_lights_specular_[i] = GetUniformLocation(uniform_prefix + ".specular");
     location_lights_attenuation_[i] = GetUniformLocation(uniform_prefix + ".attenuation");
-
-    std::cout << location_lights_use_[i] << "\n"
-              << location_lights_type_[i] << "\n"
-              << location_lights_position_[i] << "\n"
-              << location_lights_ambient_[i] << "\n"
-              << location_lights_diffuse_[i] << "\n"
-              << location_lights_specular_[i] << "\n"
-              << location_lights_attenuation_[i] << "\n";
   }
+
+  location_material_ambient_ = GetUniformLocation("material.ambient");
+  location_material_diffuse_ = GetUniformLocation("material.diffuse");
+  location_material_specular_ = GetUniformLocation("material.specular");
+  location_material_shininess_ = GetUniformLocation("material.shininess");
 }
 
 LightShader::~LightShader()
 {
+}
+
+void LightShader::Use()
+{
+  Shader::Use();
+
+  for (int i = 0; i < NUM_LIGHTS_; i++)
+    glUniform1i(location_lights_use_[i], 0);
 }
 
 void LightShader::LoadCamera(const std::shared_ptr<Camera>& camera)
@@ -65,12 +68,42 @@ void LightShader::LoadCamera(const std::shared_ptr<Camera>& camera)
 void LightShader::LoadModel(const Eigen::Matrix4d& model)
 {
   Eigen::Matrix4f model_f = model.cast<float>();
+  Eigen::Matrix3f model_it = model_f.block(0, 0, 3, 3).inverse().transpose();
 
   glUniformMatrix4fv(location_model_, 1, GL_FALSE, model_f.data());
+  glUniformMatrix3fv(location_model_inverse_transpose_, 1, GL_FALSE, model_it.data());
+
+  // TODO: move this line to a proper function
+  glUniform1i(location_has_diffuse_texture_, 1);
+  glUniform1i(location_diffuse_texture_, 0);
 }
 
-void LightShader::LoadTexture(const std::shared_ptr<Texture>& texture)
+void LightShader::LoadLight(int index, const std::shared_ptr<Light>& light)
 {
-  glUniform1i(location_texture_, 0);
+  switch (light->type)
+  {
+  case Light::Type::DIRECTIONAL:
+    glUniform1i(location_lights_type_[index], 0);
+    break;
+
+  case Light::Type::POINT:
+    glUniform1i(location_lights_type_[index], 1);
+    break;
+  }
+
+  glUniform1i(location_lights_use_[index], 1);
+  glUniform3fv(location_lights_position_[index], 1, light->position.data());
+  glUniform3fv(location_lights_ambient_[index], 1, light->ambient.data());
+  glUniform3fv(location_lights_diffuse_[index], 1, light->diffuse.data());
+  glUniform3fv(location_lights_specular_[index], 1, light->specular.data());
+  glUniform3fv(location_lights_attenuation_[index], 1, light->attenuation.data());
+}
+
+void LightShader::LoadMaterial(const std::shared_ptr<Material>& material)
+{
+  glUniform3fv(location_material_ambient_, 1, material->ambient.data());
+  glUniform3fv(location_material_diffuse_, 1, material->diffuse.data());
+  glUniform3fv(location_material_specular_, 1, material->specular.data());
+  glUniform1f(location_material_shininess_, material->shininess);
 }
 }

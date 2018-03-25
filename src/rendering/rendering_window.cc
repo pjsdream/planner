@@ -6,6 +6,12 @@
 #include "resource/raw_mesh_manager.h"
 #include "resource/texture_manager.h"
 
+#include "rendering/object/array_object.h"
+#include "rendering/object/buffer_object.h"
+#include "rendering/object/texture_object.h"
+
+#include "rendering/light.h"
+
 namespace simplan
 {
 namespace
@@ -54,7 +60,7 @@ RenderingWindow::RenderingWindow()
 
   // Initialize OpenGL via glad
   glfwMakeContextCurrent(window_);
-  if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cerr << "Failed to initialize GLAD" << std::endl;
     return;
@@ -115,30 +121,74 @@ void RenderingWindow::Run()
       0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
   };
 
-  GLuint vao;
-  glGenVertexArrays(1, &vao);
+  // Lights
+  std::shared_ptr<Light> lights[5];
 
-  GLuint vbos[2];
-  glGenBuffers(2, vbos);
+  for (int i = 0; i < 5; i++)
+    lights[i] = std::make_shared<Light>();
 
-  glBindVertexArray(vao);
+  lights[0]->type = Light::Type::DIRECTIONAL;
+  lights[0]->position = Eigen::Vector3f(-0.2, -1.0, -0.3);
+  lights[0]->ambient = Eigen::Vector3f(0.05, 0.05, 0.05);
+  lights[0]->diffuse = Eigen::Vector3f(0.4, 0.4, 0.4);
+  lights[0]->specular = Eigen::Vector3f(0.5, 0.5, 0.5);
 
-  glBindBuffer(GL_ARRAY_BUFFER, vbos[0]);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-  glEnableVertexAttribArray(0);
+  lights[1]->type = Light::Type::POINT;
+  lights[1]->position = Eigen::Vector3f(0.7, 0.2, 2.0);
+  lights[1]->ambient = Eigen::Vector3f(0.05, 0.05, 0.05);
+  lights[1]->diffuse = Eigen::Vector3f(0.8, 0.8, 0.8);
+  lights[1]->specular = Eigen::Vector3f(1.0, 1.0, 1.0);
+  lights[1]->attenuation = Eigen::Vector3f(1.0, 0.09, 0.032);
 
-  glBindBuffer(GL_ARRAY_BUFFER, vbos[1]);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-  glEnableVertexAttribArray(1);
+  lights[2]->type = Light::Type::POINT;
+  lights[2]->position = Eigen::Vector3f(2.3, -3.3, -4.0);
+  lights[2]->ambient = Eigen::Vector3f(0.05, 0.05, 0.05);
+  lights[2]->diffuse = Eigen::Vector3f(0.8, 0.8, 0.8);
+  lights[2]->specular = Eigen::Vector3f(1.0, 1.0, 1.0);
+  lights[2]->attenuation = Eigen::Vector3f(1.0, 0.09, 0.032);
+
+  lights[3]->type = Light::Type::POINT;
+  lights[3]->position = Eigen::Vector3f(-4.0, 2.0, -12.0);
+  lights[3]->ambient = Eigen::Vector3f(0.05, 0.05, 0.05);
+  lights[3]->diffuse = Eigen::Vector3f(0.4, 0.4, 0.4);
+  lights[3]->specular = Eigen::Vector3f(0.5, 0.5, 0.5);
+  lights[3]->attenuation = Eigen::Vector3f(1.0, 0.09, 0.032);
+
+  lights[4]->type = Light::Type::POINT;
+  lights[4]->position = Eigen::Vector3f(0.0, 0.0, -3.0);
+  lights[4]->ambient = Eigen::Vector3f(0.05, 0.05, 0.05);
+  lights[4]->diffuse = Eigen::Vector3f(0.4, 0.4, 0.4);
+  lights[4]->specular = Eigen::Vector3f(0.5, 0.5, 0.5);
+  lights[4]->attenuation = Eigen::Vector3f(1.0, 0.09, 0.032);
+
+  auto material = std::make_shared<Material>();
+  material->ambient = Eigen::Vector3f(0.f, 0.f, 0.f);
+  material->diffuse = Eigen::Vector3f(1.0f, 0.5f, 0.31f);
+  material->specular = Eigen::Vector3f(0.5f, 0.5f, 0.5f);
+  material->shininess = 32.0f;
+
+  auto vao = std::make_shared<ArrayObject>();
+  auto vbo0 = std::make_shared<BufferObject>();
+  auto vbo1 = std::make_shared<BufferObject>();
+
+  vbo0->SetArrayBuffer(sizeof vertices, vertices);
+  vbo1->SetArrayBuffer(sizeof colors, colors);
+
+  vao->SetAttribute(0, 3, vbo0);
+  vao->SetAttribute(1, 3, vbo1);
+  vao->SetMode(GL_LINES);
+  vao->SetNumElements(6);
 
   Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
 
   // mesh
-  GLuint mesh_vao = 0;
-  GLuint mesh_vbos[3];
-  GLuint texture_id = 0;
+  auto mesh_vao = std::make_shared<ArrayObject>();
+  auto mesh_vbo0 = std::make_shared<BufferObject>();
+  auto mesh_vbo1 = std::make_shared<BufferObject>();
+  auto mesh_vbo2 = std::make_shared<BufferObject>();
+  auto mesh_vbo3 = std::make_shared<BufferObject>();
+  bool vao_set = false;
+  std::shared_ptr<TextureObject> texture_object;
 
   while (!ShouldClose())
   {
@@ -150,75 +200,56 @@ void RenderingWindow::Run()
     color_shader_->LoadCamera(camera_);
     color_shader_->LoadModel(Eigen::Matrix4d::Identity());
 
-    glBindVertexArray(vao);
-    glDrawArrays(GL_LINES, 0, 6);
+    vao->Draw();
 
     light_shader_->Use();
     light_shader_->LoadCamera(camera_);
     light_shader_->LoadModel(Eigen::Matrix4d::Identity());
 
+    for (int i = 0; i < 5; i++)
+      light_shader_->LoadLight(i, lights[i]);
+
+    light_shader_->LoadMaterial(material);
+
     // Mesh loader
+#ifdef _WIN32
     auto mesh = RawMeshManager::LoadFromFile(
-        "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/torso_lift_link.dae");
+      "C:\\Users\\pjsdr_000\\Desktop\\documents\\fetch_ros\\fetch_description\\meshes\\torso_lift_link.dae");
+#else
+    auto mesh = RawMeshManager::LoadFromFile(
+      "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/torso_lift_link.dae");
+#endif
 
-    if (mesh != nullptr && mesh_vao == 0)
+    if (mesh != nullptr && !vao_set)
     {
-      glGenVertexArrays(1, &mesh_vao);
-      glGenBuffers(3, mesh_vbos);
+      mesh_vbo0->SetArrayBuffer(sizeof(float) * mesh->vertices.cols() * 3, mesh->vertices.data());
+      mesh_vbo1->SetArrayBuffer(sizeof(float) * mesh->normals.cols() * 3, mesh->normals.data());
+      mesh_vbo2->SetArrayBuffer(sizeof(float) * mesh->texture_coordinates.cols() * 2, mesh->texture_coordinates.data());
+      mesh_vbo3->SetElementArrayBuffer(sizeof(int) * mesh->triangles.cols() * 3, mesh->triangles.data());
 
-      glBindVertexArray(mesh_vao);
+      mesh_vao->SetAttribute(0, 3, mesh_vbo0);
+      mesh_vao->SetAttribute(1, 3, mesh_vbo1);
+      mesh_vao->SetAttribute(2, 2, mesh_vbo2);
+      mesh_vao->SetElementArrayBuffer(mesh_vbo3);
+      mesh_vao->SetMode(GL_TRIANGLES);
+      mesh_vao->SetNumElements(mesh->triangles.cols() * 3);
 
-      glBindBuffer(GL_ARRAY_BUFFER, mesh_vbos[0]);
-      glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->vertices.cols() * 3, mesh->vertices.data(), GL_STATIC_DRAW);
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-      glEnableVertexAttribArray(0);
-
-      glBindBuffer(GL_ARRAY_BUFFER, mesh_vbos[1]);
-      glBufferData(GL_ARRAY_BUFFER,
-                   sizeof(float) * mesh->texture_coordinates.cols() * 2,
-                   mesh->texture_coordinates.data(),
-                   GL_STATIC_DRAW);
-      glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-      glEnableVertexAttribArray(1);
-
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_vbos[2]);
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                   sizeof(int) * mesh->triangles.cols() * 3,
-                   mesh->triangles.data(),
-                   GL_STATIC_DRAW);
+      vao_set = true;
     }
 
-    if (mesh_vao != 0)
+    if (vao_set)
     {
       // Texture loader
       auto texture = TextureManager::LoadFromFile(mesh->texture_filename);
 
-      if (texture != nullptr && texture_id == 0)
+      if (texture != nullptr && texture_object == nullptr)
       {
-        // TODO: pass the gl functions to gl texture resource manager
-        glGenTextures(1, &texture_id);
-
-        glBindTexture(GL_TEXTURE_2D, texture_id);
-
-        glTexImage2D(GL_TEXTURE_2D,
-                     0,
-                     GL_RGBA,
-                     texture->width,
-                     texture->height,
-                     0,
-                     GL_RGBA,
-                     GL_UNSIGNED_BYTE,
-                     (void*) texture->image.data());
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        light_shader_->LoadTexture(texture);
+        texture_object = std::make_shared<TextureObject>();
+        texture_object->SetTexture(texture);
       }
 
-      glBindVertexArray(mesh_vao);
-      glDrawElements(GL_TRIANGLES, mesh->triangles.cols() * 3, GL_UNSIGNED_INT, (void*) 0);
+      light_shader_->LoadTexture(texture_object);
+      mesh_vao->Draw();
     }
 
     glfwSwapBuffers(window_);
@@ -232,7 +263,7 @@ void RenderingWindow::Run()
 void RenderingWindow::MouseButton(int button, int action, int mods, double xpos, double ypos)
 {
   int button_id = button == GLFW_MOUSE_BUTTON_LEFT ? 0 :
-                  button == GLFW_MOUSE_BUTTON_RIGHT ? 1 : -1;
+    button == GLFW_MOUSE_BUTTON_RIGHT ? 1 : -1;
 
   if (button_id != -1)
     mouse_button_pressed_[button_id] = (action == GLFW_PRESS);

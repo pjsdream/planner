@@ -17,6 +17,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{f31fc6f5-9a45-431a-a09b-cb6242df4d49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\rendering\shader">
+      <UniqueIdentifier>{d7d87ef7-2da2-4ce2-b517-744b71794077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{40330075-7934-4a1c-b353-b75756a449d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering\object">
+      <UniqueIdentifier>{6e7174e8-dcfe-4bd6-b060-bd2fb0f20d0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\planning\planner.cc">
@@ -31,6 +40,33 @@
     <ClCompile Include="..\..\lib\glad\glad.c">
       <Filter>Libraries</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\rendering\shader\color_shader.cc">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\shader\light_shader.cc">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\shader\shader.cc">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\raw_mesh_manager.cc">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\texture_manager.cc">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lodepng\lodepng.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\array_object.cpp">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\buffer_object.cpp">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\texture_object.cpp">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\planning\planner.h">
@@ -40,6 +76,45 @@
       <Filter>Source Files\rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\rendering\rendering_window.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\shader\color_shader.h">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\shader\light_shader.h">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\shader\shader.h">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\light.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\raw_mesh.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\raw_mesh_manager.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\texture.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\texture_manager.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lodepng\lodepng.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\object\array_object.h">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\object\buffer_object.h">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\object\texture_object.h">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\material.h">
       <Filter>Source Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,6 +129,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\src\shader\light.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\texture.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

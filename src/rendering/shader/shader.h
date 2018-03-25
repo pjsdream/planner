@@ -19,7 +19,7 @@ public:
   void LoadFragmentShader(const std::string& filename);
   void Link();
 
-  void Use();
+  virtual void Use();
 
 protected:
   auto Program() const

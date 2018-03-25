@@ -1,5 +1,10 @@
 #include "rendering/camera.h"
 
+#ifdef _WIN32
+#define _USE_MATH_DEFINES
+#include <math.h>
+#endif
+
 namespace simplan
 {
 Camera::Camera()

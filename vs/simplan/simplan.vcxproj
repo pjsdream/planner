@@ -23,6 +23,7 @@
     <ProjectGuid>{2C51F1EA-CB19-46C3-A36D-ECFD0D4ACCF6}</ProjectGuid>
     <RootNamespace>simplan</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>simplan</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -90,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include;C:\lib\assimp-3.3.1\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
@@ -120,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include;C:\lib\assimp-3.3.1\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -134,20 +135,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\glad\glad.c" />
+    <ClCompile Include="..\..\lib\lodepng\lodepng.cpp" />
     <ClCompile Include="..\..\src\planning\planner.cc" />
     <ClCompile Include="..\..\src\rendering\camera.cc" />
+    <ClCompile Include="..\..\src\rendering\object\array_object.cpp" />
+    <ClCompile Include="..\..\src\rendering\object\buffer_object.cpp" />
+    <ClCompile Include="..\..\src\rendering\object\texture_object.cpp" />
     <ClCompile Include="..\..\src\rendering\rendering_window.cc" />
+    <ClCompile Include="..\..\src\rendering\shader\color_shader.cc" />
+    <ClCompile Include="..\..\src\rendering\shader\light_shader.cc" />
+    <ClCompile Include="..\..\src\rendering\shader\shader.cc" />
+    <ClCompile Include="..\..\src\resource\raw_mesh_manager.cc" />
+    <ClCompile Include="..\..\src\resource\texture_manager.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\lodepng\lodepng.h" />
     <ClInclude Include="..\..\src\planning\planner.h" />
     <ClInclude Include="..\..\src\rendering\camera.h" />
+    <ClInclude Include="..\..\src\rendering\light.h" />
+    <ClInclude Include="..\..\src\rendering\material.h" />
+    <ClInclude Include="..\..\src\rendering\object\array_object.h" />
+    <ClInclude Include="..\..\src\rendering\object\buffer_object.h" />
+    <ClInclude Include="..\..\src\rendering\object\texture_object.h" />
     <ClInclude Include="..\..\src\rendering\rendering_window.h" />
+    <ClInclude Include="..\..\src\rendering\shader\color_shader.h" />
+    <ClInclude Include="..\..\src\rendering\shader\light_shader.h" />
+    <ClInclude Include="..\..\src\rendering\shader\shader.h" />
+    <ClInclude Include="..\..\src\resource\raw_mesh.h" />
+    <ClInclude Include="..\..\src\resource\raw_mesh_manager.h" />
+    <ClInclude Include="..\..\src\resource\texture.h" />
+    <ClInclude Include="..\..\src\resource\texture_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\shader\color.frag" />
     <None Include="..\..\src\shader\color.vert" />
     <None Include="..\..\src\shader\light.frag" />
     <None Include="..\..\src\shader\light.vert" />
+    <None Include="..\..\src\shader\texture.frag" />
+    <None Include="..\..\src\shader\texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,7 +17,7 @@ std::unordered_map<std::string, std::future<RawMesh>> filename_to_future_mesh;
 
 std::string GetDirectory(const std::string& filename)
 {
-  return filename.substr(0, filename.find_last_of('/'));
+  return filename.substr(0, filename.find_last_of("/\\"));
 }
 }
 
