@@ -7,6 +7,7 @@
 #include "rendering/camera.h"
 #include "rendering/light.h"
 #include "rendering/material.h"
+#include "rendering/object/texture_object.h"
 #include "resource/texture.h"
 
 namespace simplan
@@ -24,6 +25,8 @@ public:
 
   void LoadLight(int index, const std::shared_ptr<Light>& light);
   void LoadMaterial(const std::shared_ptr<Material>& material);
+
+  void LoadTexture(const std::shared_ptr<TextureObject>& texture);
 
 private:
   GLuint location_projection_;

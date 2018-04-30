@@ -23,6 +23,8 @@ public:
   }
 
   void SetArrayBuffer(int size, void* data);
+  void AllocateDynamicArrayBuffer(int size);
+  void UpdateArrayBuffer(int size, void* data);
   void SetElementArrayBuffer(int size, int* data);
 
 private:

@@ -12,6 +12,8 @@
 
 #include "rendering/light.h"
 
+#include "vision/kinect.h"
+
 namespace simplan
 {
 namespace
@@ -88,20 +90,7 @@ void RenderingWindow::LoadShaders()
 {
   color_shader_ = std::make_shared<ColorShader>();
   light_shader_ = std::make_shared<LightShader>();
-
-  /*
-#ifdef _WIN32
-  auto texture_vert = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\texture.vert", GL_VERTEX_SHADER);
-  auto texture_frag = LoadShaderFromFile("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\texture.frag", GL_FRAGMENT_SHADER);
-#else
-  auto texture_vert =
-      LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/texture.vert", GL_VERTEX_SHADER);
-  auto texture_frag =
-      LoadShaderFromFile("/home/jaesungp/cpp_workspace/planner/src/shader/texture.frag", GL_FRAGMENT_SHADER);
-#endif
-  std::vector<GLuint> texture_shaders{texture_vert, texture_frag};
-  texture_program_ = LinkShaders(texture_shaders);
-   */
+  pointcloud_shader_ = std::make_shared<PointcloudShader>();
 }
 
 void RenderingWindow::Run()
@@ -190,6 +179,13 @@ void RenderingWindow::Run()
   bool vao_set = false;
   std::shared_ptr<TextureObject> texture_object;
 
+  // Kinect
+  Kinect kinect;
+  kinect.InitializeSensor();
+  auto kinect_vao = std::make_shared<ArrayObject>();
+  auto kinect_vbo0 = std::make_shared<BufferObject>();
+  auto kinect_vbo1 = std::make_shared<BufferObject>();
+
   while (!ShouldClose())
   {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -214,7 +210,7 @@ void RenderingWindow::Run()
     // Mesh loader
 #ifdef _WIN32
     auto mesh = RawMeshManager::LoadFromFile(
-      "C:\\Users\\pjsdr_000\\Desktop\\documents\\fetch_ros\\fetch_description\\meshes\\torso_lift_link.dae");
+      "C:\\Users\\pjsdr\\Desktop\\documents\\fetch_ros\\fetch_description\\meshes\\torso_lift_link.dae");
 #else
     auto mesh = RawMeshManager::LoadFromFile(
       "/home/jaesungp/catkin_ws/src/fetch_ros/fetch_description/meshes/torso_lift_link.dae");
@@ -248,8 +244,35 @@ void RenderingWindow::Run()
         texture_object->SetTexture(texture);
       }
 
-      light_shader_->LoadTexture(texture_object);
+      if (texture_object != nullptr)
+        light_shader_->LoadTexture(texture_object);
+
       mesh_vao->Draw();
+    }
+
+    // Kinect
+    kinect.Update();
+    auto position_buffer = kinect.GetPointCloudPositionBuffer();
+    auto color_buffer = kinect.GetPointCloudColorBuffer();
+
+    if (!position_buffer.empty())
+    {
+      kinect_vbo0->AllocateDynamicArrayBuffer(position_buffer.size() * sizeof(float));
+      kinect_vbo0->UpdateArrayBuffer(position_buffer.size() * sizeof(float), position_buffer.data());
+
+      kinect_vbo1->AllocateDynamicArrayBuffer(color_buffer.size() * sizeof(float));
+      kinect_vbo1->UpdateArrayBuffer(color_buffer.size() * sizeof(float), color_buffer.data());
+
+      kinect_vao->SetAttribute(0, 3, kinect_vbo0);
+      kinect_vao->SetAttribute(1, 3, kinect_vbo1);
+      kinect_vao->SetMode(GL_POINTS);
+      kinect_vao->SetNumElements(position_buffer.size() / 3);
+
+      pointcloud_shader_->Use();
+      pointcloud_shader_->LoadCamera(camera_);
+      pointcloud_shader_->LoadModel(Eigen::Matrix4d::Identity());
+
+      kinect_vao->Draw();
     }
 
     glfwSwapBuffers(window_);

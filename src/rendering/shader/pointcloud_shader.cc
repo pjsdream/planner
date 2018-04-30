@@ -1,13 +1,13 @@
-#include "rendering/shader/color_shader.h"
+#include "rendering/shader/pointcloud_shader.h"
 
 namespace simplan
 {
-ColorShader::ColorShader()
+PointcloudShader::PointcloudShader()
     : Shader()
 {
 #ifdef _WIN32
-  LoadVertexShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\color.vert");
-  LoadFragmentShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\color.frag");
+  LoadVertexShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\pointcloud.vert");
+  LoadFragmentShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\pointcloud.frag");
 #else
   LoadVertexShader("/home/jaesungp/cpp_workspace/planner/src/shader/color.vert");
   LoadFragmentShader("/home/jaesungp/cpp_workspace/planner/src/shader/color.frag");
@@ -20,11 +20,11 @@ ColorShader::ColorShader()
   location_model_ = GetUniformLocation("model");
 }
 
-ColorShader::~ColorShader()
+PointcloudShader::~PointcloudShader()
 {
 }
 
-void ColorShader::LoadCamera(const std::shared_ptr<Camera>& camera)
+void PointcloudShader::LoadCamera(const std::shared_ptr<Camera>& camera)
 {
   Eigen::Matrix4f projection = camera->ProjectionMatrix().cast<float>();
   Eigen::Matrix4f view = camera->ViewMatrix().cast<float>();
@@ -33,7 +33,7 @@ void ColorShader::LoadCamera(const std::shared_ptr<Camera>& camera)
   glUniformMatrix4fv(location_view_, 1, GL_FALSE, view.data());
 }
 
-void ColorShader::LoadModel(const Eigen::Matrix4d& model)
+void PointcloudShader::LoadModel(const Eigen::Matrix4d& model)
 {
   Eigen::Matrix4f model_f = model.cast<float>();
 

@@ -91,12 +91,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include;C:\lib\assimp-3.3.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\Program Files\GLFW\include;C:\Program Files\Assimp\include;$(KINECTSDK20_DIR)inc</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>C:\lib\assimp-3.3.1\build\code\Release;C:\lib\glfw-3.2.1\build\src\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Assimp\lib;C:\Program Files\GLFW\lib;$(KINECTSDK20_DIR)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib;kinect20.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\lib\glfw-3.2.1\include;C:\lib\assimp-3.3.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\lib;..\..\src;C:\lib\glad\include;C:\lib\eigen-eigen-5a0156e40feb;C:\Program Files\GLFW\include;C:\Program Files\Assimp\include;$(KINECTSDK20_DIR)inc</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,13 +129,14 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\lib\assimp-3.3.1\build\code\Release;C:\lib\glfw-3.2.1\build\src\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib;kinect20.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Assimp\lib;C:\Program Files\GLFW\lib;$(KINECTSDK20_DIR)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\glad\glad.c" />
     <ClCompile Include="..\..\lib\lodepng\lodepng.cpp" />
+    <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\planning\planner.cc" />
     <ClCompile Include="..\..\src\rendering\camera.cc" />
     <ClCompile Include="..\..\src\rendering\object\array_object.cpp" />
@@ -144,12 +145,19 @@
     <ClCompile Include="..\..\src\rendering\rendering_window.cc" />
     <ClCompile Include="..\..\src\rendering\shader\color_shader.cc" />
     <ClCompile Include="..\..\src\rendering\shader\light_shader.cc" />
+    <ClCompile Include="..\..\src\rendering\shader\pointcloud_shader.cc" />
     <ClCompile Include="..\..\src\rendering\shader\shader.cc" />
     <ClCompile Include="..\..\src\resource\raw_mesh_manager.cc" />
     <ClCompile Include="..\..\src\resource\texture_manager.cc" />
+    <ClCompile Include="..\..\src\robot\robot_joint.cpp" />
+    <ClCompile Include="..\..\src\robot\robot_link.cpp" />
+    <ClCompile Include="..\..\src\robot\robot_model.cpp" />
+    <ClCompile Include="..\..\src\robot\robot_model_loader.cpp" />
+    <ClCompile Include="..\..\src\vision\kinect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\lodepng\lodepng.h" />
+    <ClInclude Include="..\..\lib\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\planning\planner.h" />
     <ClInclude Include="..\..\src\rendering\camera.h" />
     <ClInclude Include="..\..\src\rendering\light.h" />
@@ -160,17 +168,25 @@
     <ClInclude Include="..\..\src\rendering\rendering_window.h" />
     <ClInclude Include="..\..\src\rendering\shader\color_shader.h" />
     <ClInclude Include="..\..\src\rendering\shader\light_shader.h" />
+    <ClInclude Include="..\..\src\rendering\shader\pointcloud_shader.h" />
     <ClInclude Include="..\..\src\rendering\shader\shader.h" />
     <ClInclude Include="..\..\src\resource\raw_mesh.h" />
     <ClInclude Include="..\..\src\resource\raw_mesh_manager.h" />
     <ClInclude Include="..\..\src\resource\texture.h" />
     <ClInclude Include="..\..\src\resource\texture_manager.h" />
+    <ClInclude Include="..\..\src\robot\robot_joint.h" />
+    <ClInclude Include="..\..\src\robot\robot_link.h" />
+    <ClInclude Include="..\..\src\robot\robot_model.h" />
+    <ClInclude Include="..\..\src\robot\robot_model_loader.h" />
+    <ClInclude Include="..\..\src\vision\kinect.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\shader\color.frag" />
     <None Include="..\..\src\shader\color.vert" />
     <None Include="..\..\src\shader\light.frag" />
     <None Include="..\..\src\shader\light.vert" />
+    <None Include="..\..\src\shader\pointcloud.frag" />
+    <None Include="..\..\src\shader\pointcloud.vert" />
     <None Include="..\..\src\shader\texture.frag" />
     <None Include="..\..\src\shader\texture.vert" />
   </ItemGroup>

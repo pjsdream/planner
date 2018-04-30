@@ -26,6 +26,15 @@
     <Filter Include="Source Files\rendering\object">
       <UniqueIdentifier>{6e7174e8-dcfe-4bd6-b060-bd2fb0f20d0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\robot">
+      <UniqueIdentifier>{51720f11-6070-447f-bf43-8ed9fe6ece1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vision">
+      <UniqueIdentifier>{6b7be250-ea0d-4538-b0a2-a66989051d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\nlp">
+      <UniqueIdentifier>{fccd0e04-7fec-4bca-98f3-ced549639f0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\planning\planner.cc">
@@ -66,6 +75,27 @@
     </ClCompile>
     <ClCompile Include="..\..\src\rendering\object\texture_object.cpp">
       <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_model.cpp">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_model_loader.cpp">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_link.cpp">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_joint.cpp">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vision\kinect.cpp">
+      <Filter>Source Files\vision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\shader\pointcloud_shader.cc">
+      <Filter>Source Files\rendering\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +147,27 @@
     <ClInclude Include="..\..\src\rendering\material.h">
       <Filter>Source Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\robot\robot_model.h">
+      <Filter>Source Files\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\tinyxml2\tinyxml2.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\robot\robot_model_loader.h">
+      <Filter>Source Files\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\robot\robot_link.h">
+      <Filter>Source Files\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\robot\robot_joint.h">
+      <Filter>Source Files\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vision\kinect.h">
+      <Filter>Source Files\vision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\shader\pointcloud_shader.h">
+      <Filter>Source Files\rendering\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\shader\color.frag">
@@ -135,6 +186,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\src\shader\texture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\pointcloud.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\src\shader\pointcloud.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

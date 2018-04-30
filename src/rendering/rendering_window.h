@@ -11,6 +11,7 @@
 #include "rendering/camera.h"
 #include "rendering/shader/color_shader.h"
 #include "rendering/shader/light_shader.h"
+#include "rendering/shader/pointcloud_shader.h"
 
 namespace simplan
 {
@@ -36,6 +37,7 @@ private:
 
   std::shared_ptr<ColorShader> color_shader_;
   std::shared_ptr<LightShader> light_shader_;
+  std::shared_ptr<PointcloudShader> pointcloud_shader_;
 
   bool mouse_button_pressed_[2];
   double last_mouse_xpos_;

@@ -8,8 +8,8 @@ LightShader::LightShader()
     : Shader()
 {
 #ifdef _WIN32
-  LoadVertexShader("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.vert");
-  LoadFragmentShader("C:\\Users\\pjsdr_000\\Desktop\\documents\\planner\\src\\shader\\light.frag");
+  LoadVertexShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\light.vert");
+  LoadFragmentShader("C:\\Users\\pjsdr\\Desktop\\documents\\planner\\src\\shader\\light.frag");
 #else
   LoadVertexShader("/home/jaesungp/cpp_workspace/planner/src/shader/light.vert");
   LoadFragmentShader("/home/jaesungp/cpp_workspace/planner/src/shader/light.frag");
@@ -72,10 +72,6 @@ void LightShader::LoadModel(const Eigen::Matrix4d& model)
 
   glUniformMatrix4fv(location_model_, 1, GL_FALSE, model_f.data());
   glUniformMatrix3fv(location_model_inverse_transpose_, 1, GL_FALSE, model_it.data());
-
-  // TODO: move this line to a proper function
-  glUniform1i(location_has_diffuse_texture_, 1);
-  glUniform1i(location_diffuse_texture_, 0);
 }
 
 void LightShader::LoadLight(int index, const std::shared_ptr<Light>& light)
@@ -105,5 +101,14 @@ void LightShader::LoadMaterial(const std::shared_ptr<Material>& material)
   glUniform3fv(location_material_diffuse_, 1, material->diffuse.data());
   glUniform3fv(location_material_specular_, 1, material->specular.data());
   glUniform1f(location_material_shininess_, material->shininess);
+}
+
+void LightShader::LoadTexture(const std::shared_ptr<TextureObject>& texture)
+{
+  glUniform1i(location_has_diffuse_texture_, 1);
+  glUniform1i(location_diffuse_texture_, 0);
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture->GetId());
 }
 }
