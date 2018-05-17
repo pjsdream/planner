@@ -1,0 +1,88 @@
+[
+  {
+    "command": "Put the cup on the table.",
+    "nodes": [
+      {
+        "index": 0,
+        "phrase": "Put",
+        "POS": "vb",
+        "grounding": "move",
+        "children_indices": [ 1, 2 ]
+      },
+      {
+        "index": 1,
+        "phrase": "the cup",
+        "POS": "nn",
+        "grounding": "object",
+        "grounding_parameters": [ "cup" ]
+      },
+      {
+        "index": 2,
+        "phrase": "on",
+        "POS": "jj",
+        "grounding": "on",
+        "children_indices": [ 3 ]
+      },
+      {
+        "index": 3,
+        "phrase": "the table",
+        "POS": "nn",
+        "grounding": "table"
+      }
+    ],
+    "environment": {
+      "joint_values": [ 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000 ],
+      "object_hold": true
+    },
+    "parameters": {
+      "task": "move",
+      "target": "cup",
+      "collision": 1.0,
+      "smoothness": 0.1
+    }
+  },
+  {
+    "command": "Don't put it there.",
+    "nodes": [
+      {
+        "index": 0,
+        "phrase": "Don't",
+        "POS": "vb",
+        "grounding": "negation",
+        "children_indices": [ 1 ]
+      },
+      {
+        "index": 1,
+        "phrase": "put",
+        "POS": "vb",
+        "grounding": "move",
+        "children_indices": [ 2 ],
+      },
+      {
+        "index": 2,
+        "phrase": "it",
+        "POS": "jj",
+        "grounding": "on",
+        "children_indices": [ 3 ],
+        "grounding_parameters": [ "cup" ]
+      },
+      {
+        "index": 3,
+        "phrase": "there",
+        "POS": "nn",
+        "grounding": "table"
+      }
+    ],
+    "environment": {
+      "joint_values": [ 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000 ],
+      "object_hold": true
+    },
+    "parameters": {
+      "task": "move",
+      "target": "cup",
+      "collision": 1.0,
+      "smoothness": 0.1,
+      "repulsion": 0.1
+    }
+  }
+]

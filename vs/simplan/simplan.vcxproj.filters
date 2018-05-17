@@ -67,35 +67,44 @@
     <ClCompile Include="..\..\lib\lodepng\lodepng.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\rendering\object\array_object.cpp">
-      <Filter>Source Files\rendering\object</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\rendering\object\buffer_object.cpp">
-      <Filter>Source Files\rendering\object</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\rendering\object\texture_object.cpp">
-      <Filter>Source Files\rendering\object</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\robot\robot_model.cpp">
-      <Filter>Source Files\robot</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\robot\robot_model_loader.cpp">
-      <Filter>Source Files\robot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\robot\robot_link.cpp">
-      <Filter>Source Files\robot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\robot\robot_joint.cpp">
-      <Filter>Source Files\robot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\vision\kinect.cpp">
-      <Filter>Source Files\vision</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\rendering\shader\pointcloud_shader.cc">
       <Filter>Source Files\rendering\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_joint.cc">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_link.cc">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_model.cc">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\robot\robot_model_loader.cc">
+      <Filter>Source Files\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\array_object.cc">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\buffer_object.cc">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rendering\object\texture_object.cc">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vision\kinect.cc">
+      <Filter>Source Files\vision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\nlp\nlp.cc">
+      <Filter>Source Files\nlp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\nlp\dgg_node.cc">
+      <Filter>Source Files\nlp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\nlp\dgg_factor.cc">
+      <Filter>Source Files\nlp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +147,6 @@
     <ClInclude Include="..\..\src\rendering\object\array_object.h">
       <Filter>Source Files\rendering\object</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\rendering\object\buffer_object.h">
-      <Filter>Source Files\rendering\object</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\rendering\object\texture_object.h">
       <Filter>Source Files\rendering\object</Filter>
     </ClInclude>
@@ -167,6 +173,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\rendering\shader\pointcloud_shader.h">
       <Filter>Source Files\rendering\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\nlp\nlp.h">
+      <Filter>Source Files\nlp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rendering\object\buffer_object.h">
+      <Filter>Source Files\rendering\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\nlp\dgg_node.h">
+      <Filter>Source Files\nlp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\nlp\dgg_factor.h">
+      <Filter>Source Files\nlp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

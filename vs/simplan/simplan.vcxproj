@@ -137,11 +137,14 @@
     <ClCompile Include="..\..\lib\glad\glad.c" />
     <ClCompile Include="..\..\lib\lodepng\lodepng.cpp" />
     <ClCompile Include="..\..\lib\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\src\nlp\dgg_factor.cc" />
+    <ClCompile Include="..\..\src\nlp\dgg_node.cc" />
+    <ClCompile Include="..\..\src\nlp\nlp.cc" />
     <ClCompile Include="..\..\src\planning\planner.cc" />
     <ClCompile Include="..\..\src\rendering\camera.cc" />
-    <ClCompile Include="..\..\src\rendering\object\array_object.cpp" />
-    <ClCompile Include="..\..\src\rendering\object\buffer_object.cpp" />
-    <ClCompile Include="..\..\src\rendering\object\texture_object.cpp" />
+    <ClCompile Include="..\..\src\rendering\object\array_object.cc" />
+    <ClCompile Include="..\..\src\rendering\object\buffer_object.cc" />
+    <ClCompile Include="..\..\src\rendering\object\texture_object.cc" />
     <ClCompile Include="..\..\src\rendering\rendering_window.cc" />
     <ClCompile Include="..\..\src\rendering\shader\color_shader.cc" />
     <ClCompile Include="..\..\src\rendering\shader\light_shader.cc" />
@@ -149,15 +152,18 @@
     <ClCompile Include="..\..\src\rendering\shader\shader.cc" />
     <ClCompile Include="..\..\src\resource\raw_mesh_manager.cc" />
     <ClCompile Include="..\..\src\resource\texture_manager.cc" />
-    <ClCompile Include="..\..\src\robot\robot_joint.cpp" />
-    <ClCompile Include="..\..\src\robot\robot_link.cpp" />
-    <ClCompile Include="..\..\src\robot\robot_model.cpp" />
-    <ClCompile Include="..\..\src\robot\robot_model_loader.cpp" />
-    <ClCompile Include="..\..\src\vision\kinect.cpp" />
+    <ClCompile Include="..\..\src\robot\robot_joint.cc" />
+    <ClCompile Include="..\..\src\robot\robot_link.cc" />
+    <ClCompile Include="..\..\src\robot\robot_model.cc" />
+    <ClCompile Include="..\..\src\robot\robot_model_loader.cc" />
+    <ClCompile Include="..\..\src\vision\kinect.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\lodepng\lodepng.h" />
     <ClInclude Include="..\..\lib\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\src\nlp\dgg_factor.h" />
+    <ClInclude Include="..\..\src\nlp\dgg_node.h" />
+    <ClInclude Include="..\..\src\nlp\nlp.h" />
     <ClInclude Include="..\..\src\planning\planner.h" />
     <ClInclude Include="..\..\src\rendering\camera.h" />
     <ClInclude Include="..\..\src\rendering\light.h" />
